@@ -1,6 +1,6 @@
 # Textly
 
-A new Flutter project.
+A messaging app.
 
 ## Getting Started
 
