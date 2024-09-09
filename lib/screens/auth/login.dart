@@ -9,14 +9,15 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  double _opacity = 0.0;
+  double _scale = 0.0;
+
   @override
   void initState() {
     super.initState();
-    // Trigger the fade-in effect after the widget builds
+    // Trigger the zoom-in effect after the widget builds
     WidgetsBinding.instance.addPostFrameCallback((_) {
       setState(() {
-        _opacity = 1.0;
+        _scale = 1.0;
       });
     });
   }
@@ -25,7 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        //AppBar
+        // AppBar
         appBar: AppBar(
           title: Center(
             child: ShaderMask(
@@ -34,8 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Color(0xff5cf9b0),
                   Color(0xff5ff2ed),
                 ],
-                tileMode: TileMode
-                    .mirror, // Gradient behavior when extending beyond the bounds
+                tileMode: TileMode.mirror, // Gradient behavior when extending beyond the bounds
               ).createShader(bounds),
               child: const Text(
                 'Textly',
@@ -49,13 +49,13 @@ class _LoginScreenState extends State<LoginScreen> {
         body: Stack(
           children: [
             Positioned(
-              top: MediaQuery.of(context).size.height *
-                  .15, // sets the top dist 15% of te screen size
+              top: MediaQuery.of(context).size.height * .15, // sets the top distance to 15% of the screen size
               width: MediaQuery.of(context).size.width * .5,
               left: MediaQuery.of(context).size.width * .25,
-              child: AnimatedOpacity(
-                opacity: _opacity,
-                duration: const Duration(seconds: 2),
+              child: AnimatedScale(
+                scale: _scale,
+                duration: const Duration(seconds: 1),
+                curve: Curves.fastEaseInToSlowEaseOut,
                 child: Image.asset('assets/imgs/icon.png'),
               ),
             ),
@@ -74,7 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       context,
                       MaterialPageRoute(
                           builder: (_) =>
-                              const HomeScreen())); // We are using push replacement cuz we dont want the user to come back to the login screen ever again.
+                              const HomeScreen())); // We are using push replacement because we don't want the user to come back to the login screen ever again.
                 },
                 icon: Image.asset(
                   'assets/imgs/google.png',
