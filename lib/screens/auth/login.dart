@@ -33,7 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 colors: [
                   Color(0xff5cf9b0),
                   Color(0xff5ff2ed),
-                ], // Define your gradient colors
+                ],
                 tileMode: TileMode
                     .mirror, // Gradient behavior when extending beyond the bounds
               ).createShader(bounds),
