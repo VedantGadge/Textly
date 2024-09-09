@@ -43,7 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
           ),
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.transparent,
           elevation: 0,
         ),
         body: Stack(
