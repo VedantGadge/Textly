@@ -15,7 +15,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Scaffold(
         //AppBar
         appBar: AppBar(
-          title: const Text('Textly'),
+          title: const Text('Textl'),
           leading: const Icon(
             CupertinoIcons.home,
             color: Colors.white,
