@@ -1,6 +1,6 @@
+import 'package:Textly/screens/auth/login.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:Textly/screens/home.dart';
 
 void main() {
   runApp(const MyApp());
@@ -9,7 +9,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -25,7 +24,7 @@ class MyApp extends StatelessWidget {
             elevation: 5,
             shadowColor: Colors.black,
           )),
-      home: const Home(),
+      home: const LoginScreen(),
     );
   }
 }
