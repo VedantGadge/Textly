@@ -35,7 +35,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   Color(0xff5cf9b0),
                   Color(0xff5ff2ed),
                 ],
-                tileMode: TileMode.mirror, // Gradient behavior when extending beyond the bounds
+                tileMode: TileMode
+                    .mirror, // Gradient behavior when extending beyond the bounds
               ).createShader(bounds),
               child: const Text(
                 'Textly',
@@ -49,7 +50,8 @@ class _LoginScreenState extends State<LoginScreen> {
         body: Stack(
           children: [
             Positioned(
-              top: MediaQuery.of(context).size.height * .15, // sets the top distance to 15% of the screen size
+              top: MediaQuery.of(context).size.height *
+                  .15, // sets the top distance to 15% of the screen size
               width: MediaQuery.of(context).size.width * .5,
               left: MediaQuery.of(context).size.width * .25,
               child: AnimatedScale(

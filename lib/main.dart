@@ -1,8 +1,11 @@
+import 'package:Textly/firebase_options.dart';
 import 'package:Textly/screens/auth/login.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() {
+  _initializeFirebase();
   runApp(const MyApp());
 }
 
@@ -27,4 +30,10 @@ class MyApp extends StatelessWidget {
       home: const LoginScreen(),
     );
   }
+}
+
+_initializeFirebase() async {
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 }

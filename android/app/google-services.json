@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "458703033849",
+    "project_id": "textly-52b85",
+    "storage_bucket": "textly-52b85.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:458703033849:android:94c32fb0204e8d6aa75928",
+        "android_client_info": {
+          "package_name": "textly.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAa56G3wnC8uetUPPSdG8fDVVp_u29Rmac"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
