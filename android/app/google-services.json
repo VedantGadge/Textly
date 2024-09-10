@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:458703033849:android:94c32fb0204e8d6aa75928",
         "android_client_info": {
-          "package_name": "textly.app"
+          "package_name": "com.example.Textly"
         }
       },
       "oauth_client": [],

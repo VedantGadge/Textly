@@ -22,9 +22,11 @@ class MyApp extends StatelessWidget {
           appBarTheme: AppBarTheme(
             centerTitle: true,
             titleTextStyle: GoogleFonts.pacifico(
-                color: Colors.white, fontWeight: FontWeight.w400, fontSize: 27),
-            backgroundColor: const Color(0xff5ff2ed),
-            elevation: 5,
+                color: const Color(0xff5ff2ed),
+                fontWeight: FontWeight.w400,
+                fontSize: 27),
+            backgroundColor: Colors.white,
+            elevation: 3,
             shadowColor: Colors.black,
           )),
       home: const LoginScreen(),

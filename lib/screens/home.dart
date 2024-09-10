@@ -15,19 +15,32 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Scaffold(
         //AppBar
         appBar: AppBar(
-          title: const Text('Textly'),
+          title: ShaderMask(
+            shaderCallback: (bounds) => const LinearGradient(
+              colors: [
+                Color(0xff5cf9b0),
+                Color(0xff5ff2ed),
+              ],
+              tileMode: TileMode
+                  .mirror, // Gradient behavior when extending beyond the bounds
+            ).createShader(bounds),
+            child: const Text(
+              'Textly',
+              style: TextStyle(fontSize: 30),
+            ),
+          ),
           leading: const Icon(
             CupertinoIcons.home,
-            color: Colors.white,
+            color: Color(0xff5ff2ed),
           ),
           actions: [
             IconButton(
               onPressed: () {},
-              icon: const Icon(Icons.search, color: Colors.white),
+              icon: const Icon(Icons.search, color: Color(0xff5ff2ed)),
             ),
             IconButton(
               onPressed: () {},
-              icon: const Icon(Icons.more_vert, color: Colors.white),
+              icon: const Icon(Icons.more_vert, color: Color(0xff5ff2ed)),
             )
           ],
         ),
