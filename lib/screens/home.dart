@@ -24,23 +24,26 @@ class _HomeScreenState extends State<HomeScreen> {
               tileMode: TileMode
                   .mirror, // Gradient behavior when extending beyond the bounds
             ).createShader(bounds),
-            child: const Text(
-              'Textly',
-              style: TextStyle(fontSize: 30),
+            child: const Padding(
+              padding: EdgeInsets.all(5.0),
+              child: Text(
+                'Textly',
+                style: TextStyle(fontSize: 30),
+              ),
             ),
           ),
           leading: const Icon(
             CupertinoIcons.home,
-            color: Color(0xff5ff2ed),
+            color: Colors.black87,
           ),
           actions: [
             IconButton(
               onPressed: () {},
-              icon: const Icon(Icons.search, color: Color(0xff5ff2ed)),
+              icon: const Icon(Icons.search, color: Colors.black87),
             ),
             IconButton(
               onPressed: () {},
-              icon: const Icon(Icons.more_vert, color: Color(0xff5ff2ed)),
+              icon: const Icon(Icons.more_vert, color: Colors.black87),
             )
           ],
         ),
@@ -51,8 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: FloatingActionButton(
             onPressed: () {},
             backgroundColor: const Color(0xff5ff2ed),
-            shape: const CircleBorder(
-                side: BorderSide(width: 1.5, color: Colors.white)),
+            shape: const CircleBorder(),
             child: const Icon(Icons.add_comment_rounded, color: Colors.white),
           ),
         ),

@@ -8,6 +8,7 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
+//login screen - for implementing the sign in or sign up feature of the app
 class _LoginScreenState extends State<LoginScreen> {
   double _scale = 0.0;
 
@@ -38,9 +39,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 tileMode: TileMode
                     .mirror, // Gradient behavior when extending beyond the bounds
               ).createShader(bounds),
-              child: const Text(
-                'Textly',
-                style: TextStyle(fontSize: 30),
+              child: const Padding(
+                padding: EdgeInsets.all(5.0),
+                child: Text(
+                  'Textly',
+                  style: TextStyle(fontSize: 30),
+                ),
               ),
             ),
           ),
