@@ -52,7 +52,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyAa56G3wnC8uetUPPSdG8fDVVp_u29Rmac',
-    appId: '1:458703033849:android:94c32fb0204e8d6aa75928',
+    appId: '1:458703033849:android:ae1f0e96c46868a5a75928',
     messagingSenderId: '458703033849',
     projectId: 'textly-52b85',
     storageBucket: 'textly-52b85.appspot.com',
@@ -64,6 +64,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '458703033849',
     projectId: 'textly-52b85',
     storageBucket: 'textly-52b85.appspot.com',
+    androidClientId: '458703033849-ri3ed7d489b146k5c1ajun9uf6sm2knk.apps.googleusercontent.com',
+    iosClientId: '458703033849-q1da7raa2ljpsmvstefrn3k243pr0cah.apps.googleusercontent.com',
     iosBundleId: 'com.example.weChat',
   );
 
@@ -73,6 +75,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '458703033849',
     projectId: 'textly-52b85',
     storageBucket: 'textly-52b85.appspot.com',
+    androidClientId: '458703033849-ri3ed7d489b146k5c1ajun9uf6sm2knk.apps.googleusercontent.com',
+    iosClientId: '458703033849-q1da7raa2ljpsmvstefrn3k243pr0cah.apps.googleusercontent.com',
     iosBundleId: 'com.example.weChat',
   );
 
@@ -85,4 +89,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'textly-52b85.appspot.com',
     measurementId: 'G-2CCJJJL2LL',
   );
+
 }

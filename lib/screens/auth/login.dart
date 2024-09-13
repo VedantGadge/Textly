@@ -1,5 +1,7 @@
 import 'package:Textly/screens/home.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -21,6 +23,32 @@ class _LoginScreenState extends State<LoginScreen> {
         _scale = 1.0;
       });
     });
+  }
+
+  _handleGoogleSignInButton() {
+    signInWithGoogle().then((user) {
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (_) => const HomeScreen()));
+      // We are using push replacement because we don't want the user to come back to the login screen ever again.
+    });
+  }
+
+  Future<UserCredential> signInWithGoogle() async {
+    // Trigger the authentication flow
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
+
+    // Create a new credential
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    // Once signed in, return the UserCredential
+    return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 
   @override
@@ -76,11 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   shadowColor: Colors.black,
                 ),
                 onPressed: () {
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (_) =>
-                              const HomeScreen())); // We are using push replacement because we don't want the user to come back to the login screen ever again.
+                  _handleGoogleSignInButton();
                 },
                 icon: Image.asset(
                   'assets/imgs/google.png',
