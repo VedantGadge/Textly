@@ -8,7 +8,7 @@ class Dialogs {
         bottom: 50, // Adjust the distance from the bottom
         left: 20,
         right: 20,
-        child: SlideSnackbar(message: msg),
+        child: Center(child: SlideSnackbar(message: msg)),
       ),
     );
 
@@ -19,5 +19,14 @@ class Dialogs {
     Future.delayed(const Duration(seconds: 5), () {
       overlayEntry.remove();
     });
+  }
+
+  static void showProgressBar(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (_) => const Center(
+                child: CircularProgressIndicator(
+              color: Color(0xff5ff2ed),
+            )));
   }
 }

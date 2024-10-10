@@ -1,3 +1,4 @@
+import 'package:Textly/custom_widgets/chat_user_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -58,6 +59,16 @@ class _HomeScreenState extends State<HomeScreen> {
             child: const Icon(Icons.add_comment_rounded, color: Colors.white),
           ),
         ),
+        body: ListView.builder(
+          physics: const BouncingScrollPhysics(),
+          padding:
+              EdgeInsets.only(top: MediaQuery.of(context).size.width * .015),
+          itemBuilder: (context, index) {
+            return const ChatUserCard();
+          },
+          itemCount: 12,
+        ),
+        backgroundColor: const Color(0xff5ff2ed),
       ),
     );
   }

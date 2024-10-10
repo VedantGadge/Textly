@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:Textly/api/apis.dart';
 import 'package:Textly/helper/dialogs.dart';
 import 'package:Textly/screens/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -29,7 +30,9 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   _handleGoogleSignInButton() {
+    Dialogs.showProgressBar(context);
     signInWithGoogle().then((user) {
+      Navigator.pop(context);
       if (user != null) {
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (_) => const HomeScreen()));
@@ -53,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
         idToken: googleAuth?.idToken,
       );
       // Once signed in, return the UserCredential
-      return await FirebaseAuth.instance.signInWithCredential(credential);
+      return await APIs.auth.signInWithCredential(credential);
     } catch (e) {
       log('\n_signInWithGoogle: $e');
       Dialogs.showCustomSnackbar(
