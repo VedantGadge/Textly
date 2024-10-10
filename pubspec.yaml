@@ -43,6 +43,8 @@ dependencies:
   # for handling firebase authentication
   firebase_auth: ^5.2.1
 
+  # for accessing cloud firestore database
+  cloud_firestore: ^5.4.4
 
 flutter_launcher_icons:
   android: "launcher_icon"

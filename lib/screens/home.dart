@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:Textly/api/apis.dart';
 import 'package:Textly/custom_widgets/chat_user_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -59,15 +62,30 @@ class _HomeScreenState extends State<HomeScreen> {
             child: const Icon(Icons.add_comment_rounded, color: Colors.white),
           ),
         ),
-        body: ListView.builder(
-          physics: const BouncingScrollPhysics(),
-          padding:
-              EdgeInsets.only(top: MediaQuery.of(context).size.width * .015),
-          itemBuilder: (context, index) {
-            return const ChatUserCard();
-          },
-          itemCount: 12,
-        ),
+
+        //body
+        body: StreamBuilder(
+            stream: APIs.firestore.collection('users').snapshots(),
+            builder: (context, snapshot) {
+              final Userslist = [];
+
+              if (snapshot.hasData) {
+                final data = snapshot.data?.docs;
+                for (var i in data!) {
+                  log('Data: ${i.data()}');
+                  Userslist.add(i.data()['name']);
+                }
+              }
+              return ListView.builder(
+                physics: const BouncingScrollPhysics(),
+                padding: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.width * .015),
+                itemBuilder: (context, index) {
+                  return Text('Name: ${Userslist[index]}');
+                },
+                itemCount: Userslist.length,
+              );
+            }),
         backgroundColor: const Color(0xff5ff2ed),
       ),
     );
