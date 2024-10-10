@@ -81,7 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: EdgeInsets.only(
                     top: MediaQuery.of(context).size.width * .015),
                 itemBuilder: (context, index) {
-                  return Text('Name: ${Userslist[index]}');
+                  return ChatUserCard(name: Userslist[index]);
                 },
                 itemCount: Userslist.length,
               );
