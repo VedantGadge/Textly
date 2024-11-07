@@ -19,35 +19,23 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Scaffold(
         //AppBar
         appBar: AppBar(
-          title: ShaderMask(
-            shaderCallback: (bounds) => const LinearGradient(
-              colors: [
-                Color(0xff5cf9b0),
-                Color(0xff5ff2ed),
-              ],
-              tileMode: TileMode
-                  .mirror, // Gradient behavior when extending beyond the bounds
-            ).createShader(bounds),
-            child: const Padding(
-              padding: EdgeInsets.all(5.0),
-              child: Text(
-                'Textly',
-                style: TextStyle(fontSize: 30),
-              ),
-            ),
+          backgroundColor: const Color(0xff121212),
+          title: const Text(
+            "Textly",
+            style: TextStyle(color: Color(0xff9C27B0)),
           ),
           leading: const Icon(
             CupertinoIcons.home,
-            color: Colors.black87,
+            color: Colors.white,
           ),
           actions: [
             IconButton(
               onPressed: () {},
-              icon: const Icon(Icons.search, color: Colors.black87),
+              icon: const Icon(Icons.search, color: Colors.white),
             ),
             IconButton(
               onPressed: () {},
-              icon: const Icon(Icons.more_vert, color: Colors.black87),
+              icon: const Icon(Icons.more_vert, color: Colors.white),
             )
           ],
         ),
@@ -57,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
           padding: const EdgeInsets.only(bottom: 20),
           child: FloatingActionButton(
             onPressed: () {},
-            backgroundColor: const Color(0xff5ff2ed),
+            backgroundColor: const Color(0xff4DD0E1),
             shape: const CircleBorder(),
             child: const Icon(Icons.add_comment_rounded, color: Colors.white),
           ),
@@ -81,12 +69,16 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: EdgeInsets.only(
                     top: MediaQuery.of(context).size.width * .015),
                 itemBuilder: (context, index) {
-                  return ChatUserCard(name: Userslist[index]);
+                  return ChatUserCard(
+                    name: Userslist[index],
+                    lastMessage: 'Hello, wassup',
+                    time: '10:24',
+                  );
                 },
                 itemCount: Userslist.length,
               );
             }),
-        backgroundColor: const Color(0xff5ff2ed),
+        backgroundColor: const Color(0xff121212),
       ),
     );
   }
