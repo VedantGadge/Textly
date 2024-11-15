@@ -38,6 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
               icon: const Icon(Icons.more_vert, color: Colors.white),
             )
           ],
+          elevation: 0,
         ),
 
         //flolating action button to add new chat
