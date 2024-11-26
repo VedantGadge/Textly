@@ -1,19 +1,12 @@
+import 'package:Textly/models/chat_user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 class ChatUserCard extends StatefulWidget {
-  final String name;
-  final String lastMessage;
-  final String time;
-  final bool isUnread;
+  final ChatUser user;
 
-  const ChatUserCard({
-    super.key,
-    required this.name,
-    required this.lastMessage,
-    required this.time,
-    this.isUnread = false,
-  });
+  const ChatUserCard({super.key, required this.user});
 
   @override
   State<ChatUserCard> createState() => _ChatUserCardState();
@@ -43,7 +36,7 @@ class _ChatUserCardState extends State<ChatUserCard> {
 
               // Name and last message
               title: Text(
-                widget.name,
+                widget.user.name,
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
@@ -51,7 +44,7 @@ class _ChatUserCardState extends State<ChatUserCard> {
                 ),
               ),
               subtitle: Text(
-                widget.lastMessage,
+                widget.user.about,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
@@ -61,25 +54,10 @@ class _ChatUserCardState extends State<ChatUserCard> {
               ),
 
               // Time and unread indicator
-              trailing: Column(
+              trailing: const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    widget.time,
-                    style: TextStyle(
-                      color: widget.isUnread ? Colors.blue : Colors.grey,
-                      fontSize: 12,
-                    ),
-                  ),
-                  if (widget.isUnread)
-                    const Padding(
-                      padding: EdgeInsets.only(top: 5),
-                      child: Icon(
-                        Icons.circle,
-                        color: Colors.blue,
-                        size: 10,
-                      ),
-                    ),
+                  Text('12:00 PM'),
                 ],
               ),
             ),
@@ -91,8 +69,8 @@ class _ChatUserCardState extends State<ChatUserCard> {
           color: Colors.white60,
           thickness: 0.1,
           height: 0,
-          indent: 35,
-          endIndent: 35,
+          indent: 20,
+          endIndent: 20,
         ),
       ],
     );

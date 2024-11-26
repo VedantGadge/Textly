@@ -1,7 +1,10 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:Textly/api/apis.dart';
 import 'package:Textly/custom_widgets/chat_user_card.dart';
+import 'package:Textly/models/chat_user.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -13,6 +16,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  List<ChatUser> Userslist = [];
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -56,28 +61,42 @@ class _HomeScreenState extends State<HomeScreen> {
         body: StreamBuilder(
             stream: APIs.firestore.collection('users').snapshots(),
             builder: (context, snapshot) {
-              final Userslist = [];
+              switch (snapshot.connectionState) {
+                //if data is loading (waiting or none)
+                case ConnectionState.waiting:
+                case ConnectionState.none:
+                  return const Center(child: CircularProgressIndicator());
 
-              if (snapshot.hasData) {
-                final data = snapshot.data?.docs;
-                for (var i in data!) {
-                  log('Data: ${i.data()}');
-                  Userslist.add(i.data()['name']);
-                }
+                //if data is done loading(even partly)
+                case ConnectionState.active:
+                case ConnectionState.done:
+                  final data = snapshot.data?.docs;
+                  Userslist = data
+                          ?.map((e) => ChatUser.fromJson(e
+                              .data())) //smilar to for() maps each data to each list element
+                          .toList() ??
+                      [];
+                  if (Userslist.isNotEmpty) {
+                    return ListView.builder(
+                      physics: const BouncingScrollPhysics(),
+                      padding: EdgeInsets.only(
+                          top: MediaQuery.of(context).size.width * .015),
+                      itemBuilder: (context, index) {
+                        return ChatUserCard(
+                          user: Userslist[index],
+                        );
+                      },
+                      itemCount: Userslist.length,
+                    );
+                  } else {
+                    return const Center(
+                      child: Text(
+                        'No Connections Found !',
+                        style: TextStyle(fontSize: 20, color: Colors.white),
+                      ),
+                    );
+                  }
               }
-              return ListView.builder(
-                physics: const BouncingScrollPhysics(),
-                padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.width * .015),
-                itemBuilder: (context, index) {
-                  return ChatUserCard(
-                    name: Userslist[index],
-                    lastMessage: 'Hello, wassup',
-                    time: '10:24',
-                  );
-                },
-                itemCount: Userslist.length,
-              );
             }),
         backgroundColor: const Color(0xff121212),
       ),
