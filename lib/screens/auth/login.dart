@@ -31,12 +31,19 @@ class _LoginScreenState extends State<LoginScreen> {
 
   _handleGoogleSignInButton() {
     Dialogs.showProgressBar(context);
-    signInWithGoogle().then((user) {
+    signInWithGoogle().then((user) async {
       Navigator.pop(context);
       if (user != null) {
-        Navigator.pushReplacement(
+
+        if(await APIs.userExists()){
+          Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (_) => const HomeScreen()));
         // We are using push replacement because we don't want the user to come back to the login screen ever again.
+        }
+        else{
+          await 
+        }
+        
       }
     });
   }
