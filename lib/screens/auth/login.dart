@@ -34,16 +34,16 @@ class _LoginScreenState extends State<LoginScreen> {
     signInWithGoogle().then((user) async {
       Navigator.pop(context);
       if (user != null) {
-
-        if(await APIs.userExists()){
+        if (await APIs.userExists()) {
           Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (_) => const HomeScreen()));
-        // We are using push replacement because we don't want the user to come back to the login screen ever again.
+              context, MaterialPageRoute(builder: (_) => const HomeScreen()));
+          // We are using push replacement because we don't want the user to come back to the login screen ever again.
+        } else {
+          await APIs.createUser().then((value) {
+            Navigator.pushReplacement(
+                context, MaterialPageRoute(builder: (_) => const HomeScreen()));
+          });
         }
-        else{
-          await 
-        }
-        
       }
     });
   }

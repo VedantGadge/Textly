@@ -1,4 +1,5 @@
 import 'package:Textly/models/chat_user.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -26,11 +27,16 @@ class _ChatUserCardState extends State<ChatUserCard> {
             onTap: () {},
             child: ListTile(
               // Profile picture
-              leading: const CircleAvatar(
-                radius: 25,
-                child: Icon(
-                  CupertinoIcons.person_alt_circle,
-                  color: Colors.black,
+              leading: ClipRRect(
+                borderRadius: BorderRadius.circular(
+                    MediaQuery.of(context).size.height * 0.3),
+                child: CachedNetworkImage(
+                  height: MediaQuery.of(context).size.height * 0.065,
+                  width: MediaQuery.of(context).size.height * 0.065,
+                  imageUrl: widget.user.image,
+                  placeholder: (context, url) => CircularProgressIndicator(),
+                  errorWidget: (context, url, error) =>
+                      Icon(CupertinoIcons.person_alt_circle),
                 ),
               ),
 
