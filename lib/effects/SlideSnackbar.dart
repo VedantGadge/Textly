@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class SlideSnackbar extends StatefulWidget {
   final String message;
-  const SlideSnackbar({Key? key, required this.message}) : super(key: key);
+  const SlideSnackbar({super.key, required this.message});
 
   @override
   _SlideSnackbarState createState() => _SlideSnackbarState();

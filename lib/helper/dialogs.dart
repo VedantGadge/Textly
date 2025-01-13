@@ -13,7 +13,7 @@ class Dialogs {
     );
 
     // Insert the overlay into the current overlay stack
-    Overlay.of(context)!.insert(overlayEntry);
+    Overlay.of(context).insert(overlayEntry);
 
     // Automatically remove the snackbar after the desired duration
     Future.delayed(const Duration(seconds: 5), () {

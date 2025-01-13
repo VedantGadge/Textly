@@ -5,12 +5,20 @@ allprojects {
     }
 }
 
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.1.1' // Match with your project's Gradle version
+    }
+}
+
 rootProject.buildDir = "../build"
+
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
-}
-subprojects {
-    project.evaluationDependsOn(":app")
 }
 
 tasks.register("clean", Delete) {
