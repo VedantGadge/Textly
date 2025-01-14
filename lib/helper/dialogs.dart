@@ -6,8 +6,8 @@ class Dialogs {
     OverlayEntry overlayEntry = OverlayEntry(
       builder: (context) => Positioned(
         bottom: 50, // Adjust the distance from the bottom
-        left: 20,
-        right: 20,
+        left: 10,
+        right: 10,
         child: Center(child: SlideSnackbar(message: msg)),
       ),
     );

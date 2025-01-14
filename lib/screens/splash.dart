@@ -58,10 +58,10 @@ class _SplashScreenState extends State<SplashScreen> {
                     padding: const EdgeInsets.all(7.0),
                     child: Text(
                       'Textly',
-                      style: GoogleFonts.pacifico(
-                          fontSize: 35,
+                      style: GoogleFonts.quicksand(
+                          fontSize: 45,
                           color: Colors.white,
-                          fontWeight: FontWeight.w400),
+                          fontWeight: FontWeight.w700),
                     ),
                   ),
                 ),
