@@ -7,7 +7,9 @@ import 'package:Textly/screens/auth/login.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ProfileScreen extends StatefulWidget {
   final ChatUser user;
@@ -132,7 +134,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 right: 0,
                                 child: MaterialButton(
                                   elevation: 1,
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    _showBottomSheet();
+                                  },
                                   color: Colors.white,
                                   shape: CircleBorder(),
                                   child: Icon(
@@ -308,5 +312,66 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 isDarkMode ? Colors.white : const Color(0xff121212)),
       ),
     );
+  }
+
+  //bottom sheet for picking a profile pic for user
+  void _showBottomSheet() {
+    showModalBottomSheet(
+        backgroundColor: const Color(0xff4DD0E1),
+        context: context,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20), topRight: Radius.circular(20))),
+        builder: (_) {
+          return ListView(
+            shrinkWrap:
+                true, // this makes the listview to the size of its content
+            padding: EdgeInsets.only(
+              top: MediaQuery.of(context).size.height * .025,
+              bottom: MediaQuery.of(context).size.height * .03,
+            ),
+            children: [
+              Text(
+                'Pick Profile Picture',
+                textAlign: TextAlign.center,
+                style: GoogleFonts.quicksand(
+                  color: Colors.white,
+                  fontSize: 22.5,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.025,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          fixedSize: Size(
+                              MediaQuery.of(context).size.width * 0.28,
+                              MediaQuery.of(context).size.height * 0.13)),
+                      onPressed: () async {
+                        final ImagePicker picker = ImagePicker();
+                        // Pick an image.
+                        final XFile? image =
+                            await picker.pickImage(source: ImageSource.gallery);
+                      },
+                      child: Image.asset('assets/imgs/add_image.png')),
+                  ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          fixedSize: Size(
+                              MediaQuery.of(context).size.width * 0.28,
+                              MediaQuery.of(context).size.height * 0.13)),
+                      onPressed: () {},
+                      child: Image.asset(
+                        'assets/imgs/camera.png',
+                        scale: 7,
+                      ))
+                ],
+              )
+            ],
+          );
+        });
   }
 }
