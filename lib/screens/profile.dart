@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:Textly/api/apis.dart';
 import 'package:Textly/helper/dialogs.dart';
@@ -21,7 +22,7 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   final _formkey = GlobalKey<FormState>();
-
+  String? _image;
   late bool isDarkMode;
 
   @override
@@ -113,22 +114,48 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           //user profile pic
                           child: Stack(
                             children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(
-                                    MediaQuery.of(context).size.height * 0.1),
-                                child: CachedNetworkImage(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.2,
-                                  width:
-                                      MediaQuery.of(context).size.height * 0.2,
-                                  fit: BoxFit.fill,
-                                  imageUrl: widget.user.image,
-                                  placeholder: (context, url) =>
-                                      CircularProgressIndicator(),
-                                  errorWidget: (context, url, error) =>
-                                      Icon(CupertinoIcons.person_alt_circle),
-                                ),
-                              ),
+                              _image != null
+                                  ?
+
+                                  //Image from local
+                                  ClipRRect(
+                                      borderRadius: BorderRadius.circular(
+                                          MediaQuery.of(context).size.height *
+                                              0.1),
+                                      child: Image.file(
+                                        File(_image!),
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.2,
+                                        width:
+                                            MediaQuery.of(context).size.height *
+                                                0.2,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    )
+                                  :
+
+                                  //Image from server
+                                  ClipRRect(
+                                      borderRadius: BorderRadius.circular(
+                                          MediaQuery.of(context).size.height *
+                                              0.1),
+                                      child: CachedNetworkImage(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.2,
+                                        width:
+                                            MediaQuery.of(context).size.height *
+                                                0.2,
+                                        fit: BoxFit.cover,
+                                        imageUrl: widget.user.image,
+                                        placeholder: (context, url) =>
+                                            CircularProgressIndicator(),
+                                        errorWidget: (context, url, error) =>
+                                            Icon(CupertinoIcons
+                                                .person_alt_circle),
+                                      ),
+                                    ),
                               Positioned(
                                 bottom: 0,
                                 right: 0,
@@ -346,6 +373,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
+                  // Picture form the gallery
                   ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           fixedSize: Size(
@@ -356,14 +384,33 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         // Pick an image.
                         final XFile? image =
                             await picker.pickImage(source: ImageSource.gallery);
+                        if (image != null) {
+                          setState(() {
+                            _image = image.path;
+                          });
+                        }
+                        Navigator.pop(context);
                       },
                       child: Image.asset('assets/imgs/add_image.png')),
+
+                  //Take picture from the camera
                   ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           fixedSize: Size(
                               MediaQuery.of(context).size.width * 0.28,
                               MediaQuery.of(context).size.height * 0.13)),
-                      onPressed: () {},
+                      onPressed: () async {
+                        final ImagePicker picker = ImagePicker();
+                        // Pick an image.
+                        final XFile? image =
+                            await picker.pickImage(source: ImageSource.camera);
+                        if (image != null) {
+                          setState(() {
+                            _image = image.path;
+                          });
+                        }
+                        Navigator.pop(context);
+                      },
                       child: Image.asset(
                         'assets/imgs/camera.png',
                         scale: 7,

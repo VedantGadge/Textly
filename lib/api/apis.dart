@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'dart:developer' as dev;
 import 'package:Textly/models/chat_user.dart';
+import 'package:Textly/models/message.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -69,4 +70,48 @@ class APIs {
       'about': me.about,
     });
   }
+
+  // static Future<void> updateUserProfileImg() async {
+  //   final url = Uri.parse('https://api.cloudinary.com/v1_1/dtza4akuc/upload');
+
+  //   final request = http.MultipartRequest('POST', url)
+  //     ..fields['upload_preset'] = 'imgggg'
+  //     ..files.add(await http.MultipartFile.fromPath('file',_imageFile!.path));
+  // }
+
+  ///********************** Chat Screen Related APIs **********************///
+
+  //useful for getting convo id
+  static String getConversationID(String id) => user.uid.hashCode <= id.hashCode
+      ? '${user.uid}_$id'
+      : '${id}_${user.uid}';
+
+  //for getting all messages from a specific chat from firestore database
+  static Stream<QuerySnapshot<Map<String, dynamic>>> getAllMsgs(ChatUser user) {
+    return firestore
+        .collection('chats/${getConversationID(user.id)}/messages')
+        .snapshots();
+  }
+
+  //for sending messages
+  static Future<void> sendMessage(ChatUser chatuser, String msg) async {
+    //message sending time, which we are using it as id
+    final time = DateTime.now().millisecondsSinceEpoch.toString();
+
+    //message to send
+    final message = Message(
+      toId: chatuser.id,
+      msg: msg,
+      read: '',
+      type: Type.text,
+      sent: time,
+      fromId: user.uid,
+    );
+
+    final ref = firestore
+        .collection('chats/${getConversationID(chatuser.id)}/messages');
+    await ref.doc(time).set(message.toJson());
+  }
+
+  //chats (collection) --> conversation_id (doc) --> message (colection) --> message (doc)
 }
