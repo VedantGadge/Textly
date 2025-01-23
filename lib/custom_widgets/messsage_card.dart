@@ -1,4 +1,5 @@
 import 'package:Textly/api/apis.dart';
+import 'package:Textly/helper/my_time.dart';
 import 'package:Textly/models/message.dart';
 import 'package:flutter/material.dart';
 
@@ -28,13 +29,16 @@ class _MesssageCardState extends State<MesssageCard> {
             SizedBox(width: MediaQuery.of(context).size.width * 0.04),
 
             //double tick icon for msg read
-            Icon(Icons.done_all_rounded,
-                color: Colors.lightBlueAccent.shade200, size: 20),
+            if (widget.message.read.isNotEmpty)
+              Icon(Icons.done_all_rounded,
+                  color: Colors.lightBlueAccent.shade200, size: 20),
 
             const SizedBox(width: 4),
 
-            //read time
-            Text(widget.message.sent,
+            //sent time
+            Text(
+                MyTime.getFormattedTime(
+                    context: context, time: widget.message.sent),
                 style: TextStyle(color: Colors.white30, fontSize: 13)),
           ],
         ),
@@ -42,7 +46,7 @@ class _MesssageCardState extends State<MesssageCard> {
         //message content
         Flexible(
           child: Container(
-            padding: EdgeInsets.all(MediaQuery.of(context).size.width * .04),
+            padding: EdgeInsets.all(MediaQuery.of(context).size.width * .02),
             margin: EdgeInsets.symmetric(
               horizontal: MediaQuery.of(context).size.width * 0.04,
               vertical: MediaQuery.of(context).size.height * 0.01,
@@ -54,14 +58,14 @@ class _MesssageCardState extends State<MesssageCard> {
                 ),
                 color: Color(0xff4DD0E1),
                 borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(30),
-                  bottomLeft: Radius.circular(30),
-                  topRight: Radius.circular(30),
+                  topLeft: Radius.circular(15),
+                  bottomLeft: Radius.circular(15),
+                  topRight: Radius.circular(15),
                 )),
             child: Text(
               widget.message.msg,
               style: TextStyle(
-                fontSize: 15,
+                fontSize: 16,
                 color: Colors.white,
                 fontWeight: FontWeight.w500,
               ),
@@ -74,13 +78,17 @@ class _MesssageCardState extends State<MesssageCard> {
 
   //sender or another user message message
   Widget _senderMessage() {
+    //update last read message if sender and reciever are different
+    if (widget.message.read.isEmpty) {
+      APIs.updateMsgReadStatus(widget.message);
+    }
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Flexible(
           //Flexible used to handle very long msg , so it would wrap
           child: Container(
-            padding: EdgeInsets.all(MediaQuery.of(context).size.width * .04),
+            padding: EdgeInsets.all(MediaQuery.of(context).size.width * .02),
             margin: EdgeInsets.symmetric(
               horizontal: MediaQuery.of(context).size.width * 0.04,
               vertical: MediaQuery.of(context).size.height * 0.01,
@@ -92,31 +100,50 @@ class _MesssageCardState extends State<MesssageCard> {
                 ),
                 color: Color(0xff1C1F26),
                 borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(30),
-                  topRight: Radius.circular(30),
-                  bottomRight: Radius.circular(30),
+                  topLeft: Radius.circular(15),
+                  topRight: Radius.circular(15),
+                  bottomRight: Radius.circular(15),
                 )),
-            child: Text(
-              widget.message.msg,
-              style: TextStyle(
-                fontSize: 15,
-                color: Colors.white,
-                fontWeight: FontWeight.w500,
-              ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  widget.message.msg,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.width * 0.04,
+                      left: MediaQuery.of(context).size.width * 0.04),
+                  child: Text(
+                    MyTime.getFormattedTime(
+                        context: context, time: widget.message.sent),
+                    style: TextStyle(
+                      color: Colors.white24,
+                      fontSize: 10,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ),
-        Padding(
-          padding:
-              EdgeInsets.only(right: MediaQuery.of(context).size.width * 0.04),
-          child: Text(
-            widget.message.sent,
-            style: TextStyle(
-              color: Colors.white24,
-              fontSize: 13,
-            ),
-          ),
-        ),
+        // Padding(
+        //   padding:
+        //       EdgeInsets.only(right: MediaQuery.of(context).size.width * 0.04),
+        //   child: Text(
+        //     MyTime.getFormattedTime(
+        //         context: context, time: widget.message.sent),
+        //     style: TextStyle(
+        //       color: Colors.white24,
+        //       fontSize: 13,
+        //     ),
+        //   ),
+        // ),
       ],
     );
   }

@@ -56,7 +56,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       case ConnectionState.none:
                         return const SizedBox();
 
-                      //if data is done loading(even partly)
+                        //if data is done loading(even partly)
                       case ConnectionState.active:
                       case ConnectionState.done:
                         final data = snapshot.data?.docs;
