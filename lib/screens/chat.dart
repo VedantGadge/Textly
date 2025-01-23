@@ -44,53 +44,66 @@ class _ChatScreenState extends State<ChatScreen> {
                 ),
           ),
         ),
-        body: Column(
+        body: Stack(
           children: [
-            Expanded(
-              child: StreamBuilder(
-                  stream: APIs.getAllMsgs(widget.user),
-                  builder: (context, snapshot) {
-                    switch (snapshot.connectionState) {
-                      //if data is loading (waiting or none)
-                      case ConnectionState.waiting:
-                      case ConnectionState.none:
-                        return const SizedBox();
-
-                        //if data is done loading(even partly)
-                      case ConnectionState.active:
-                      case ConnectionState.done:
-                        final data = snapshot.data?.docs;
-                        _list = data
-                                ?.map((e) => Message.fromJson(e
-                                    .data())) //smilar to for() maps each data to each list element
-                                .toList() ??
-                            [];
-
-                        if (_list.isNotEmpty) {
-                          return ListView.builder(
-                              itemCount: _list.length,
-                              physics: const BouncingScrollPhysics(),
-                              padding: EdgeInsets.only(
-                                  top:
-                                      MediaQuery.of(context).size.width * .015),
-                              itemBuilder: (context, index) {
-                                return MesssageCard(
-                                  message: _list[index],
-                                );
-                              });
-                        } else {
-                          return const Center(
-                            child: Text(
-                              'Say Hii! 👋',
-                              style:
-                                  TextStyle(fontSize: 20, color: Colors.white),
-                            ),
-                          );
-                        }
-                    }
-                  }),
+            Positioned.fill(
+              child: Opacity(
+                opacity: 0.2, // Adjust opacity for better readability
+                child: Image.asset(
+                  'assets/imgs/darkbg1.jpeg', // Replace with your asset path
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
-            _chatInput(),
+            Column(
+              children: [
+                Expanded(
+                  child: StreamBuilder(
+                      stream: APIs.getAllMsgs(widget.user),
+                      builder: (context, snapshot) {
+                        switch (snapshot.connectionState) {
+                          //if data is loading (waiting or none)
+                          case ConnectionState.waiting:
+                          case ConnectionState.none:
+                            return const SizedBox();
+
+                          //if data is done loading(even partly)
+                          case ConnectionState.active:
+                          case ConnectionState.done:
+                            final data = snapshot.data?.docs;
+                            _list = data
+                                    ?.map((e) => Message.fromJson(e
+                                        .data())) //smilar to for() maps each data to each list element
+                                    .toList() ??
+                                [];
+
+                            if (_list.isNotEmpty) {
+                              return ListView.builder(
+                                  itemCount: _list.length,
+                                  physics: const BouncingScrollPhysics(),
+                                  padding: EdgeInsets.only(
+                                      top: MediaQuery.of(context).size.width *
+                                          .015),
+                                  itemBuilder: (context, index) {
+                                    return MesssageCard(
+                                      message: _list[index],
+                                    );
+                                  });
+                            } else {
+                              return const Center(
+                                child: Text(
+                                  'Say Hii! 👋',
+                                  style: TextStyle(
+                                      fontSize: 20, color: Colors.white),
+                                ),
+                              );
+                            }
+                        }
+                      }),
+                ),
+                _chatInput(),
+              ],
+            ),
           ],
         ),
       ),

@@ -58,16 +58,20 @@ class _MesssageCardState extends State<MesssageCard> {
                 ),
                 color: Color(0xff4DD0E1),
                 borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(15),
-                  bottomLeft: Radius.circular(15),
-                  topRight: Radius.circular(15),
+                  topLeft: Radius.circular(17),
+                  bottomLeft: Radius.circular(17),
+                  topRight: Radius.circular(17),
                 )),
-            child: Text(
-              widget.message.msg,
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.white,
-                fontWeight: FontWeight.w500,
+            child: Padding(
+              padding: const EdgeInsets.only(
+                  top: 2.5, bottom: 2.5, left: 4, right: 4),
+              child: Text(
+                widget.message.msg,
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ),
           ),
@@ -118,7 +122,7 @@ class _MesssageCardState extends State<MesssageCard> {
                 Padding(
                   padding: EdgeInsets.only(
                       top: MediaQuery.of(context).size.width * 0.04,
-                      left: MediaQuery.of(context).size.width * 0.04),
+                      left: MediaQuery.of(context).size.width * 0.02),
                   child: Text(
                     MyTime.getFormattedTime(
                         context: context, time: widget.message.sent),
