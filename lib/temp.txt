@@ -24,24 +24,24 @@ class _MesssageCardState extends State<MesssageCard> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Row(
-          children: [
-            SizedBox(width: MediaQuery.of(context).size.width * 0.04),
+        // Row(
+        //   children: [
+        //     SizedBox(width: MediaQuery.of(context).size.width * 0.04),
 
-            //double tick icon for msg read
-            if (widget.message.read.isNotEmpty)
-              Icon(Icons.done_all_rounded,
-                  color: Colors.lightBlueAccent.shade200, size: 20),
+        //     //double tick icon for msg read
+        //     if (widget.message.read.isNotEmpty)
+        //       Icon(Icons.done_all_rounded,
+        //           color: Colors.lightBlueAccent.shade200, size: 20),
 
-            const SizedBox(width: 4),
+        //     const SizedBox(width: 4),
 
-            //sent time
-            Text(
-                MyTime.getFormattedTime(
-                    context: context, time: widget.message.sent),
-                style: TextStyle(color: Colors.white30, fontSize: 13)),
-          ],
-        ),
+        //     //sent time
+        //     Text(
+        //         MyTime.getFormattedTime(
+        //             context: context, time: widget.message.sent),
+        //         style: TextStyle(color: Colors.white30, fontSize: 13)),
+        //   ],
+        // ),
 
         //message content
         Flexible(
@@ -58,21 +58,26 @@ class _MesssageCardState extends State<MesssageCard> {
                 ),
                 color: Color(0xff4DD0E1),
                 borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(50),
-                    bottomLeft: Radius.circular(50),
-                    topRight: Radius.circular(50),
-                    bottomRight: Radius.circular(10))),
-            child: Padding(
-              padding: const EdgeInsets.only(
-                  top: 2.5, bottom: 2.5, left: 4, right: 4),
-              child: Text(
-                widget.message.msg,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w500,
+                  topLeft: Radius.circular(17),
+                  bottomLeft: Radius.circular(17),
+                  topRight: Radius.circular(17),
+                )),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                    MyTime.getFormattedTime(
+                        context: context, time: widget.message.sent),
+                    style: TextStyle(color: Colors.white30, fontSize: 13)),
+                Text(
+                  widget.message.msg,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
-              ),
+              ],
             ),
           ),
         ),
@@ -104,10 +109,10 @@ class _MesssageCardState extends State<MesssageCard> {
                 ),
                 color: Color(0xff1C1F26),
                 borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(50),
-                    topRight: Radius.circular(50),
-                    bottomRight: Radius.circular(50),
-                    bottomLeft: Radius.circular(10))),
+                  topLeft: Radius.circular(15),
+                  topRight: Radius.circular(15),
+                  bottomRight: Radius.circular(15),
+                )),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -122,7 +127,7 @@ class _MesssageCardState extends State<MesssageCard> {
                 Padding(
                   padding: EdgeInsets.only(
                       top: MediaQuery.of(context).size.width * 0.04,
-                      left: MediaQuery.of(context).size.width * 0.025),
+                      left: MediaQuery.of(context).size.width * 0.02),
                   child: Text(
                     MyTime.getFormattedTime(
                         context: context, time: widget.message.sent),

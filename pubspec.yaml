@@ -52,6 +52,9 @@ dependencies:
   # for picking images
   image_picker: ^1.1.2
 
+ # for showing emojiss
+  emoji_picker_flutter: ^4.3.0
+
   sqflite: ^2.4.0
   
 flutter_launcher_icons:
