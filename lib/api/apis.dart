@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'dart:developer' as dev;
 import 'package:Textly/models/chat_user.dart';
 import 'package:Textly/models/message.dart';
@@ -78,6 +77,23 @@ class APIs {
   //     ..fields['upload_preset'] = 'imgggg'
   //     ..files.add(await http.MultipartFile.fromPath('file',_imageFile!.path));
   // }
+
+  // for getting specific user info
+  static Stream<QuerySnapshot<Map<String, dynamic>>> getUserInfo(
+      ChatUser chatUser) {
+    return firestore
+        .collection('users')
+        .where('id', isEqualTo: chatUser.id)
+        .snapshots();
+  }
+
+  // update online/offline or last acive status of user
+  static Future<void> updateActiveStatus(bool isOnline) async {
+    firestore.collection('users').doc(user.uid).update({
+      'is_online': isOnline,
+      'last_active': DateTime.now().millisecondsSinceEpoch.toString()
+    });
+  }
 
   ///********************** Chat Screen Related APIs **********************///
 

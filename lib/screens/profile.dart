@@ -6,6 +6,7 @@ import 'package:Textly/helper/dialogs.dart';
 import 'package:Textly/models/chat_user.dart';
 import 'package:Textly/screens/auth/login.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -60,6 +61,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 onPressed: () async {
                   //showing cirular progress bar
                   Dialogs.showProgressBar(context);
+                  APIs.updateActiveStatus(
+                      false); // sets the user offline upon logging out
                   await APIs.auth.signOut().then((value) async {
                     await GoogleSignIn().signOut().then((value) async {
                       //Removing profile screen , returning to home screen
@@ -68,6 +71,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       //Removing home screen
                       Navigator.pop(context);
 
+                      APIs.auth = FirebaseAuth.instance;
                       //Returning to login screen
                       Navigator.pushReplacement(context,
                           MaterialPageRoute(builder: (_) => LoginScreen()));

@@ -1,7 +1,9 @@
 import 'package:Textly/api/apis.dart';
 import 'package:Textly/custom_widgets/messsage_card.dart';
+import 'package:Textly/helper/my_time.dart';
 import 'package:Textly/models/chat_user.dart';
 import 'package:Textly/models/message.dart';
+import 'package:Textly/screens/view_profile.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/cupertino.dart';
@@ -163,66 +165,92 @@ class _ChatScreenState extends State<ChatScreen> {
   //app bar widget
   Widget _appBar() {
     return InkWell(
-      onTap: () {},
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          //back button
-          IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Icon(
-              Icons.arrow_back_outlined,
-              color: Colors.white70,
-            ),
-          ),
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (_) => viewProfileScreen(user: widget.user)));
+      },
+      child: StreamBuilder(
+        stream: APIs.getUserInfo(widget.user),
+        builder: (context, snapshot) {
+          final data = snapshot.data?.docs;
+          final list = data
+                  ?.map((e) => ChatUser.fromJson(e
+                      .data())) //smilar to for() maps each data to each list element
+                  .toList() ??
+              [];
 
-          //adding some space
-          SizedBox(width: 10),
-
-          //user profile
-          ClipRRect(
-              borderRadius: BorderRadius.circular(
-                  MediaQuery.of(context).size.height * 0.03),
-              child: CachedNetworkImage(
-                height: MediaQuery.of(context).size.height * .05,
-                width: MediaQuery.of(context).size.height * .05,
-                fit: BoxFit.cover,
-                imageUrl: widget.user.image,
-                placeholder: (context, url) => CircularProgressIndicator(),
-                errorWidget: (context, url, error) =>
-                    Icon(CupertinoIcons.person_alt_circle),
-              )),
-
-          //adding some space
-          SizedBox(width: 13),
-
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
+          return Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              //user name
-              Text(
-                widget.user.name,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w500,
+              //back button
+              IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: Icon(
+                  Icons.arrow_back_outlined,
+                  color: Colors.white70,
                 ),
               ),
 
-              //for adding some space
-              SizedBox(height: 2),
+              //adding some space
+              SizedBox(width: 10),
 
-              //last seen time of the user
-              Text(
-                'Last seen not available',
-                style: TextStyle(color: Colors.white54, fontSize: 13),
-              ),
+              //user profile
+              ClipRRect(
+                  borderRadius: BorderRadius.circular(
+                      MediaQuery.of(context).size.height * 0.03),
+                  child: CachedNetworkImage(
+                    height: MediaQuery.of(context).size.height * .05,
+                    width: MediaQuery.of(context).size.height * .05,
+                    fit: BoxFit.cover,
+                    imageUrl:
+                        list.isNotEmpty ? list[0].image : widget.user.image,
+                    placeholder: (context, url) => CircularProgressIndicator(),
+                    errorWidget: (context, url, error) =>
+                        Icon(CupertinoIcons.person_alt_circle),
+                  )),
+
+              //adding some space
+              SizedBox(width: 13),
+
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  //user name
+                  Text(
+                    list.isNotEmpty ? list[0].name : widget.user.name,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+
+                  //for adding some space
+                  SizedBox(height: 2),
+
+                  //last seen time of the user
+                  Text(
+                    list.isNotEmpty
+                        ? list[0].isOnline
+                            ? 'Online'
+                            : MyTime.getLastActiveTime(
+                                context: context,
+                                lastActive: list[0].lastActive)
+                        : MyTime.getLastActiveTime(
+                            context: context,
+                            lastActive: widget.user.lastActive),
+                    style: TextStyle(color: Colors.white54, fontSize: 13),
+                  ),
+                ],
+              )
             ],
-          )
-        ],
+          );
+        },
       ),
     );
   }
@@ -268,7 +296,6 @@ class _ChatScreenState extends State<ChatScreen> {
                           _showEmojis = !_showEmojis;
                         });
                       }
-                      ;
                     },
                     cursorColor: const Color(0xff4DD0E1),
                     decoration: InputDecoration(
