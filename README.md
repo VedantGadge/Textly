@@ -1,16 +1,17 @@
-# Textly
+# Textly – Full-Stack Messaging App ✨📩  
 
-A messaging app.
+A **dynamic and seamless** text messaging app built using **Flutter** with **Google Firestore** for backend and **Cloudinary** for media storage.  
 
-## Getting Started
+## Features 🚀  
+- **Real-time messaging** with Google Firestore.  
+- **User authentication** with sign-in page.  
+- **Profile customization** – Upload profile picture and set a description.  
+- **Image & Video Uploads** via Cloudinary.  
+- **Multi-user support** for group and individual chats.  
+- **Sleek, elegant, and user-friendly UI** for an enhanced messaging experience.  
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Tech Stack 🛠  
+- **Frontend:** Flutter  
+- **Backend:** Firebase Firestore  
+- **Media Storage:** Cloudinary  
+- **Authentication:** Firebase Auth  
